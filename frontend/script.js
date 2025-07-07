@@ -1,17 +1,23 @@
-document.getElementById('decisionForm').addEventListener('submit',async function (e) {
+document.getElementById('decisionForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
 
-    console.log("Sending to backend: ", data);
+    // 💡 Moved backend logic here
+    let scorePrivate = 0;
+    let scoreGov = 0;
 
-    const response=await fetch('http://localhost:3000/api/recommend', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-    });
+    if (data.results === 'high') scoreGov += 2;
+    if (data.budget === 'yes') scorePrivate += 2;
+    if (data.goal === 'job') scorePrivate += 2;
+    if (data.goal === 'research') scoreGov += 2;
+    if (data.freedom === 'high') scorePrivate += 2;
+    if (data.freedom === 'low') scoreGov += 1;
 
-    const result=await response.json();
-    document.getElementById('result').innerText=result.message;
-} );
+    const message = scorePrivate > scoreGov
+        ? "You are more suitable for a Private Degree."
+        : "You are better off choosing a Government University Degree.";
+
+    document.getElementById('result').innerText = message;
+});
