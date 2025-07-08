@@ -4,7 +4,7 @@
 
 ---
 
-## 🌐 [🚀 Live Demo](https://Sandadinu.github.io/student-decision-helper-frontend/)  
+## 🌐 [🚀 Live Demo](https://Sandadinu.github.io/student-decision-helper/)  
 *Click above to try it now!*
 
 ---
